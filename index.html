@@ -16,6 +16,11 @@
       --black:#0a0a0a;
       --white:#ffffff;
       --neon:#00ffcc;
+
+      /* Winbox accents */
+      --win-gray:#f2f2f2;
+      --win-dark:#111;
+      --win-shadow:#000;
     }
 
     *{ box-sizing:border-box; }
@@ -43,7 +48,6 @@
       opacity:.9;
       animation: drift 18s linear infinite;
     }
-
     @keyframes drift{
       from { transform: translate3d(0,0,0); }
       to   { transform: translate3d(-80px, 60px, 0); }
@@ -158,7 +162,12 @@
       animation-delay: .2s;
     }
 
-    nav{ margin-top:12px; opacity:0; animation: fadeUp .9s ease forwards; animation-delay:.35s; }
+    nav{
+      margin-top:12px;
+      opacity:0;
+      animation: fadeUp .9s ease forwards;
+      animation-delay:.35s;
+    }
     nav a{
       color:var(--neon);
       text-decoration:none;
@@ -277,50 +286,202 @@
       50%{ box-shadow:0 0 28px #ff66ccff, 0 0 14px #00ffcc88; transform: translateY(-2px); }
     }
 
+    /* ===== Sparkle particles container ===== */
+    .sparkles{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-1;
+      overflow:hidden;
+    }
+    .sparkle{
+      position:absolute;
+      width:10px;
+      height:10px;
+      border-radius:2px;
+      background: linear-gradient(45deg, #fff, var(--neon));
+      opacity:.8;
+      filter: drop-shadow(0 0 8px #ffffffaa);
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp{
+      from { transform: translateY(120vh) rotate(0deg); opacity:0; }
+      10% { opacity:.9; }
+      to { transform: translateY(-20vh) rotate(240deg); opacity:0; }
+    }
+
+    /* ===== Cursor sparks ===== */
+    .cursor-spark{
+      position:fixed;
+      width:8px;
+      height:8px;
+      border-radius:2px;
+      background: linear-gradient(45deg, var(--pink), var(--blue));
+      pointer-events:none;
+      opacity:.9;
+      filter: drop-shadow(0 0 10px #ff66cc);
+      transform: translate(-50%, -50%);
+      animation: pop .55s ease forwards;
+      z-index:10;
+    }
+    @keyframes pop{
+      0% { transform: translate(-50%, -50%) scale(1); opacity:.95; }
+      100% { transform: translate(-50%, -50%) scale(2.2); opacity:0; }
+    }
+
+    /* ===== GWORLZ GRID ===== */
     .gworlz{
       padding:60px 20px 80px;
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap:30px;
       max-width:1100px;
       margin:0 auto;
     }
 
-    .gworl-card{
-      background: linear-gradient(135deg, #ffffff11, #ffffff05);
-      border:2px solid #ffffff22;
-      border-radius:20px;
-      padding:20px;
-      text-align:center;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 0 20px #000;
+    /* ===== Windows 95-style GWORL boxes (fun + colorful) ===== */
+    .winbox{
+      background: var(--win-gray);
+      color: var(--win-dark);
+      border-radius: 16px;
+      overflow: hidden;
+
+      border: 3px solid var(--win-dark);
+      box-shadow:
+        0 0 0 3px #ffffff22,
+        10px 10px 0 var(--win-shadow),
+        0 0 28px #ffffff1a;
+
       transform: translateY(18px);
-      opacity:0;
-      transition: transform .18s ease, box-shadow .18s ease;
+      opacity: 0;
+      transition: transform .2s ease, box-shadow .2s ease;
     }
 
-    .gworl-card:hover{
-      transform: translateY(-6px) rotate(-0.4deg);
-      box-shadow: 0 0 28px #ffffff1a, 0 0 24px #000;
+    .winbox:hover{
+      transform: translateY(-6px) rotate(-0.3deg);
+      box-shadow:
+        0 0 0 3px #ffffff33,
+        12px 12px 0 var(--win-shadow),
+        0 0 38px #ffffff22;
     }
 
-    .gworl-card h2{
-      font-family:'Press Start 2P', monospace;
-      font-size:14px;
-      margin:0 0 10px;
+    .win-titlebar{
+      height: 44px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 0 10px 0 12px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+
+      /* Colorful Y2K titlebars per gworl */
+      background: linear-gradient(90deg, #2b2bff, #00ffcc);
+      color:#fff;
+
+      border-bottom: 3px solid var(--win-dark);
+      position: relative;
     }
 
-    .gworl-card p{
-      font-size:14px;
-      color:#ccc;
-      margin:10px 0;
+    /* Little sparkle line on titlebar */
+    .win-titlebar::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(90deg, transparent, #ffffff55, transparent);
+      opacity:.35;
+      animation: titleSweep 3.8s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes titleSweep{
+      0% { transform: translateX(-70%); opacity:0; }
+      25% { opacity:.45; }
+      55% { transform: translateX(70%); opacity:0; }
+      100% { transform: translateX(70%); opacity:0; }
     }
 
-    .it{ border-color: var(--pink); box-shadow:0 0 20px #ff66cc55; }
-    .alt{ border-color: var(--purple); box-shadow:0 0 20px #7b61ff55; }
-    .sweet{ border-color: var(--blue); box-shadow:0 0 20px #5ddcff55; }
+    .win-title{
+      text-shadow: 0 0 10px #00ffcc88;
+      user-select:none;
+    }
 
-    .pixel{ font-family:'Press Start 2P', monospace; font-size:12px; color: #e8fff9; }
+    .win-x{
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 2px solid var(--win-dark);
+      background: #ffffff;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 12px;
+      line-height: 1;
+      cursor: pointer;
+
+      box-shadow: 2px 2px 0 #000;
+      transition: transform .12s ease;
+    }
+    .win-x:active{
+      transform: translate(2px,2px);
+      box-shadow: 0 0 0 #000;
+    }
+
+    .win-body{
+      padding: 18px 16px 16px;
+    }
+
+    .win-body h2{
+      font-family: 'Press Start 2P', monospace;
+      font-size: 14px;
+      margin: 0 0 10px;
+      color: #111;
+    }
+
+    .win-body p{
+      margin: 10px 0;
+      font-size: 14px;
+      color: #2b2b2b;
+    }
+
+    .win-actions{
+      display:flex;
+      gap: 12px;
+      justify-content:center;
+      margin-top: 14px;
+    }
+
+    .win-btn{
+      min-width: 110px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 2px solid var(--win-dark);
+      background: #fff;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      cursor:pointer;
+
+      box-shadow: 3px 3px 0 #000;
+      transition: transform .12s ease, filter .12s ease;
+    }
+
+    .win-btn:active{
+      transform: translate(3px,3px);
+      box-shadow: 0 0 0 #000;
+    }
+
+    .win-btn.primary{
+      background: linear-gradient(45deg, var(--pink), var(--purple));
+      color: #111;
+      filter: saturate(1.2);
+    }
+
+    /* Per-gworl titlebar colors */
+    .winbox.it .win-titlebar{
+      background: linear-gradient(90deg, #ff3bbf, #ffd1f0, #00ffcc);
+    }
+    .winbox.alt .win-titlebar{
+      background: linear-gradient(90deg, #7b61ff, #00ffcc, #1a0033);
+    }
+    .winbox.sweet .win-titlebar{
+      background: linear-gradient(90deg, #5ddcff, #fff2b8, #ff66cc);
+    }
 
     .coming-soon{
       text-align:center;
@@ -349,50 +510,7 @@
       border-top:1px solid #ffffff22;
     }
 
-    /* Sparkle particles container */
-    .sparkles{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:-1;
-      overflow:hidden;
-    }
-    .sparkle{
-      position:absolute;
-      width:10px;
-      height:10px;
-      border-radius:2px;
-      background: linear-gradient(45deg, #fff, var(--neon));
-      opacity:.8;
-      filter: drop-shadow(0 0 8px #ffffffaa);
-      animation: floatUp linear infinite;
-    }
-    @keyframes floatUp{
-      from { transform: translateY(120vh) rotate(0deg); opacity:0; }
-      10% { opacity:.9; }
-      to { transform: translateY(-20vh) rotate(240deg); opacity:0; }
-    }
-
-    /* Little cursor sparks (optional cute chaos) */
-    .cursor-spark{
-      position:fixed;
-      width:8px;
-      height:8px;
-      border-radius:2px;
-      background: linear-gradient(45deg, var(--pink), var(--blue));
-      pointer-events:none;
-      opacity:.9;
-      filter: drop-shadow(0 0 10px #ff66cc);
-      transform: translate(-50%, -50%);
-      animation: pop .55s ease forwards;
-      z-index:10;
-    }
-    @keyframes pop{
-      0% { transform: translate(-50%, -50%) scale(1); opacity:.95; }
-      100% { transform: translate(-50%, -50%) scale(2.2); opacity:0; }
-    }
-
-    /* Reduce motion for accessibility */
+    /* Reduce motion */
     @media (prefers-reduced-motion: reduce){
       *{ animation: none !important; transition: none !important; }
     }
@@ -428,24 +546,54 @@
     <a class="cta" href="#shop">ENTER THE GWORLZVERSE</a>
   </section>
 
+  <!-- GWORLZ WINDOWS-STYLE BOXES -->
   <section id="gworlz" class="gworlz">
-    <div class="gworl-card it reveal">
-      <h2>IT GWORL 💅🏾</h2>
-      <p>main character energy. glossy. confident. pretty and powerful.</p>
-      <p class="pixel">STATUS: THAT GWORL</p>
-    </div>
 
-    <div class="gworl-card alt reveal">
-      <h2>ALT GWORL 🖤</h2>
-      <p>mysterious. artsy. weird in a hot way. fairy goth. hood fairy.</p>
-      <p class="pixel">STATUS: UNBOTHERED</p>
-    </div>
+    <article class="winbox it reveal">
+      <div class="win-titlebar">
+        <div class="win-title">System message</div>
+        <button class="win-x" aria-label="Close">✕</button>
+      </div>
+      <div class="win-body">
+        <h2>IT GWORL 💅🏾</h2>
+        <p>main character energy. glossy. confident. pretty and powerful.</p>
+        <div class="win-actions">
+          <button class="win-btn primary">Ok</button>
+          <button class="win-btn">Cancel</button>
+        </div>
+      </div>
+    </article>
 
-    <div class="gworl-card sweet reveal">
-      <h2>SWEET GWORL 🎀</h2>
-      <p>soft. loving. emotional but not weak. lover girl with a backbone.</p>
-      <p class="pixel">STATUS: SOFT BUT CRAZY</p>
-    </div>
+    <article class="winbox alt reveal">
+      <div class="win-titlebar">
+        <div class="win-title">System message</div>
+        <button class="win-x" aria-label="Close">✕</button>
+      </div>
+      <div class="win-body">
+        <h2>ALT GWORL 🖤</h2>
+        <p>mysterious. artsy. weird in a hot way. fairy goth. hood fairy.</p>
+        <div class="win-actions">
+          <button class="win-btn primary">Ok</button>
+          <button class="win-btn">Cancel</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="winbox sweet reveal">
+      <div class="win-titlebar">
+        <div class="win-title">System message</div>
+        <button class="win-x" aria-label="Close">✕</button>
+      </div>
+      <div class="win-body">
+        <h2>SWEET GWORL 🎀</h2>
+        <p>soft. loving. emotional but not weak. lover girl with a backbone.</p>
+        <div class="win-actions">
+          <button class="win-btn primary">Ok</button>
+          <button class="win-btn">Cancel</button>
+        </div>
+      </div>
+    </article>
+
   </section>
 
   <section id="shop" class="coming-soon">
@@ -492,11 +640,11 @@
 
     revealEls.forEach(el => io.observe(el));
 
-    // ===== Optional cursor sparks (cute chaos) =====
+    // ===== Cursor sparks =====
     let lastSpark = 0;
     window.addEventListener("mousemove", (ev) => {
       const now = Date.now();
-      if(now - lastSpark < 55) return; // throttle
+      if(now - lastSpark < 55) return;
       lastSpark = now;
 
       const sp = document.createElement("div");
@@ -505,6 +653,30 @@
       sp.style.top = ev.clientY + "px";
       document.body.appendChild(sp);
       setTimeout(() => sp.remove(), 550);
+    });
+
+    // ===== Fake window button interactions (no real closing, just vibes) =====
+    document.querySelectorAll(".win-x").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const box = e.target.closest(".winbox");
+        box.style.transform = "scale(0.98)";
+        box.style.filter = "brightness(0.9)";
+        setTimeout(() => {
+          box.style.transform = "";
+          box.style.filter = "";
+        }, 200);
+      });
+    });
+
+    document.querySelectorAll(".win-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const box = e.target.closest(".winbox");
+        box.style.boxShadow =
+          "0 0 0 3px #ffffff33, 12px 12px 0 #000, 0 0 50px #00ffcc55";
+        setTimeout(() => {
+          box.style.boxShadow = "";
+        }, 250);
+      });
     });
   </script>
 </body>
