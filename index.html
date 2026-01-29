@@ -17,7 +17,6 @@
       --white:#ffffff;
       --neon:#00ffcc;
 
-      /* Winbox accents */
       --win-gray:#f2f2f2;
       --win-dark:#111;
       --win-shadow:#000;
@@ -162,32 +161,63 @@
       animation-delay: .2s;
     }
 
-    nav{
-      margin-top:12px;
+    /* ===== Retro Window-Style Top Nav Buttons ===== */
+    .win-nav{
+      margin-top: 14px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
       opacity:0;
       animation: fadeUp .9s ease forwards;
       animation-delay:.35s;
     }
-    nav a{
-      color:var(--neon);
-      text-decoration:none;
-      margin:0 10px;
-      font-size:12px;
-      position:relative;
+
+    .nav-btn{
+      padding: 10px 14px;
+      min-width: 140px;
+
+      border-radius: 10px;
+      border: 2px solid #111;
+      background: linear-gradient(45deg, #ffffff, #eaeaea);
+
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      color: #111;
+      cursor: pointer;
+
+      box-shadow: 3px 3px 0 #000;
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+
+      position: relative;
+      overflow: hidden;
     }
-    nav a:hover{ text-shadow:0 0 8px var(--neon); }
-    nav a::after{
+
+    .nav-btn:active{
+      transform: translate(3px,3px);
+      box-shadow: 0 0 0 #000;
+    }
+
+    .nav-btn:hover{
+      filter: saturate(1.2);
+      box-shadow:
+        3px 3px 0 #000,
+        0 0 14px #00ffcc88;
+    }
+
+    .nav-btn::after{
       content:"";
       position:absolute;
-      left:50%;
-      bottom:-6px;
-      width:0%;
-      height:2px;
-      background: linear-gradient(90deg, var(--pink), var(--neon));
-      transition: .25s ease;
-      transform: translateX(-50%);
+      inset:0;
+      background: linear-gradient(90deg, transparent, #ffffff66, transparent);
+      opacity:.4;
+      transform: translateX(-120%);
+      transition: transform .6s ease;
+      pointer-events:none;
     }
-    nav a:hover::after{ width:100%; }
+    .nav-btn:hover::after{
+      transform: translateX(120%);
+    }
 
     .hero{
       padding:80px 20px 60px;
@@ -262,7 +292,6 @@
       animation-delay:.5s, 1.6s;
     }
 
-    /* Shine sweep on button */
     .cta::after{
       content:"";
       position:absolute;
@@ -374,7 +403,6 @@
       font-family: 'Press Start 2P', monospace;
       font-size: 11px;
 
-      /* Colorful Y2K titlebars per gworl */
       background: linear-gradient(90deg, #2b2bff, #00ffcc);
       color:#fff;
 
@@ -382,7 +410,6 @@
       position: relative;
     }
 
-    /* Little sparkle line on titlebar */
     .win-titlebar::after{
       content:"";
       position:absolute;
@@ -529,11 +556,13 @@
   <header>
     <div class="logo" data-text="for the gworlz">for the gworlz</div>
     <div class="tagline">street ✧ alt ✧ magical ✧ black ✧ queer ✧ main character</div>
-    <nav>
-      <a href="#gworlz">THE GWORLZ</a>
-      <a href="#shop">SHOP</a>
-      <a href="#about">ABOUT</a>
-      <a href="#community">COMMUNITY</a>
+
+    <!-- Retro pop-up vibe nav -->
+    <nav class="win-nav">
+      <button class="nav-btn" data-target="#gworlz">THE GWORLZ</button>
+      <button class="nav-btn" data-target="#shop">SHOP</button>
+      <button class="nav-btn" data-target="#about">ABOUT</button>
+      <button class="nav-btn" data-target="#community">COMMUNITY</button>
     </nav>
   </header>
 
@@ -601,6 +630,15 @@
     FIRST DROP: MAIN CHARACTER MODE
   </section>
 
+  <!-- Placeholder sections so nav scroll works -->
+  <section id="about" class="coming-soon">
+    ABOUT ✧ COMING SOON
+  </section>
+
+  <section id="community" class="coming-soon">
+    COMMUNITY ✧ COMING SOON
+  </section>
+
   <footer>
     © for the gworlz ✨ made for the gworlz, by the gworlz.
   </footer>
@@ -625,7 +663,7 @@
       sparklesWrap.appendChild(s);
     }
 
-    // ===== Reveal on scroll for cards =====
+    // ===== Reveal on scroll for winboxes =====
     const revealEls = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
@@ -655,7 +693,7 @@
       setTimeout(() => sp.remove(), 550);
     });
 
-    // ===== Fake window button interactions (no real closing, just vibes) =====
+    // ===== Fake window button interactions =====
     document.querySelectorAll(".win-x").forEach(btn => {
       btn.addEventListener("click", (e) => {
         const box = e.target.closest(".winbox");
@@ -676,6 +714,21 @@
         setTimeout(() => {
           box.style.boxShadow = "";
         }, 250);
+      });
+    });
+
+    // ===== Retro nav button pop + smooth scroll =====
+    document.querySelectorAll(".nav-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        // pop feedback
+        btn.style.boxShadow =
+          "0 0 0 3px #ffffff33, 6px 6px 0 #000, 0 0 30px #00ffccaa";
+        setTimeout(() => { btn.style.boxShadow = ""; }, 220);
+
+        // scroll
+        const target = btn.getAttribute("data-target");
+        const el = document.querySelector(target);
+        if(el) el.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
   </script>
