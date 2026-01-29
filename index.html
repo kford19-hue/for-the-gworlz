@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>for the gworlz ✨</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- Pixel + Y2K fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --pink: #ff66cc;
+      --purple: #7b61ff;
+      --blue: #5ddcff;
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --neon: #00ffcc;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Comic Neue', cursive;
+      background: radial-gradient(circle at top, #1a0033, #000);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* Y2K background sparkles */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: 
+        radial-gradient(#ffffff33 1px, transparent 1px),
+        radial-gradient(#ffffff22 1px, transparent 1px);
+      background-size: 60px 60px, 120px 120px;
+      z-index: -1;
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid var(--neon);
+      background: linear-gradient(90deg, #ff66cc33, #7b61ff33);
+      backdrop-filter: blur(6px);
+    }
+
+    .logo {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 22px;
+      color: var(--pink);
+      text-shadow: 0 0 10px #ff66cc, 0 0 20px #7b61ff;
+    }
+
+    .tagline {
+      font-size: 14px;
+      color: #ccc;
+      margin-top: 8px;
+    }
+
+    nav {
+      margin-top: 12px;
+    }
+
+    nav a {
+      color: var(--neon);
+      text-decoration: none;
+      margin: 0 10px;
+      font-size: 12px;
+    }
+
+    nav a:hover {
+      text-shadow: 0 0 8px var(--neon);
+    }
+
+    .hero {
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 28px;
+      color: var(--blue);
+      text-shadow: 0 0 15px var(--blue);
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: 20px auto;
+      color: #ddd;
+      font-size: 16px;
+    }
+
+    .cta {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 14px 24px;
+      background: linear-gradient(45deg, var(--pink), var(--purple));
+      color: black;
+      font-weight: bold;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 0 15px var(--pink);
+    }
+
+    .cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px var(--pink);
+    }
+
+    .gworlz {
+      padding: 60px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .gworl-card {
+      background: linear-gradient(135deg, #ffffff11, #ffffff05);
+      border: 2px solid #ffffff22;
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 20px #000;
+    }
+
+    .gworl-card h2 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .gworl-card p {
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .it {
+      border-color: #ff66cc;
+      box-shadow: 0 0 20px #ff66cc55;
+    }
+
+    .alt {
+      border-color: #7b61ff;
+      box-shadow: 0 0 20px #7b61ff55;
+    }
+
+    .sweet {
+      border-color: #5ddcff;
+      box-shadow: 0 0 20px #5ddcff55;
+    }
+
+    .coming-soon {
+      text-align: center;
+      padding: 60px 20px;
+      font-family: 'Press Start 2P', monospace;
+      color: var(--neon);
+      text-shadow: 0 0 10px var(--neon);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 12px;
+      color: #888;
+      border-top: 1px solid #ffffff22;
+    }
+
+    .pixel {
+      font-family: 'Press Start 2P', monospace;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">for the gworlz</div>
+  <div class="tagline">street ✧ alt ✧ magical ✧ black ✧ queer ✧ main character</div>
+  <nav>
+    <a href="#gworlz">THE GWORLZ</a>
+    <a href="#shop">SHOP</a>
+    <a href="#about">ABOUT</a>
+    <a href="#community">COMMUNITY</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>WELCOME, GWORL 🌐</h1>
+  <p>
+    for the gworlz is a universe. a safe space. a mood.  
+    streetwear for black gworlz, alt gworlz, sweet gworlz, and main characters only.
+  </p>
+  <a class="cta" href="#shop">ENTER THE GWORLZVERSE</a>
+</section>
+
+<section id="gworlz" class="gworlz">
+
+  <div class="gworl-card it">
+    <h2>IT GWORL 💅🏾</h2>
+    <p>
+      main character energy. glossy. confident. pretty and powerful.
+      she walks in like she owns the room.
+    </p>
+    <p class="pixel">STATUS: THAT GWORL</p>
+  </div>
+
+  <div class="gworl-card alt">
+    <h2>ALT GWORL 🖤</h2>
+    <p>
+      mysterious. artsy. weird in a hot way.
+      fairy goth. hood fairy. underground icon.
+    </p>
+    <p class="pixel">STATUS: UNBOTHERED</p>
+  </div>
+
+  <div class="gworl-card sweet">
+    <h2>SWEET GWORL 🎀</h2>
+    <p>
+      soft. loving. emotional but not weak.
+      lover girl with a backbone.
+    </p>
+    <p class="pixel">STATUS: SOFT BUT CRAZY</p>
+  </div>
+
+</section>
+
+<section id="shop" class="coming-soon">
+  SHOP COMING SOON ✧  
+  FIRST DROP: MAIN CHARACTER MODE
+</section>
+
+<footer>
+  © for the gworlz ✨ made for the gworlz, by the gworlz.
+</footer>
+
+</body>
+</html>
