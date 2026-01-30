@@ -219,12 +219,23 @@
       transform: translateX(120%);
     }
 
-    .hero{
-      padding:80px 20px 60px;
-      text-align:center;
-      position:relative;
-    }
+   .hero{
+     padding:80px 20px 60px;
+     position:relative;
 
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     text-align: center;
+     gap: 24px;   /* space between WELCOME + button */
+   }
+
+    .hero h1,
+    .hero .cta{
+      display: block;
+   }
+    
     .hero h1{
       font-family:'Press Start 2P', monospace;
       font-size:28px;
