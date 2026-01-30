@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>gworlzverse ✨</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --pink:#ff66cc;
+      --purple:#7b61ff;
+      --blue:#5ddcff;
+      --neon:#00ffcc;
+
+      --win-gray:#f2f2f2;
+      --win-dark:#111;
+      --win-shadow:#000;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+
+    body{
+      margin:0;
+      font-family:'Comic Neue', cursive;
+      background: radial-gradient(circle at top, #1a0033, #000);
+      color:white;
+      overflow-x:hidden;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='8' cy='8' r='4' fill='%23ff66cc'/%3E%3C/svg%3E") 8 8, auto;
+    }
+
+    /* star grid */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background-image:
+        radial-gradient(#ffffff33 1px, transparent 1px),
+        radial-gradient(#ffffff22 1px, transparent 1px);
+      background-size:60px 60px, 120px 120px;
+      z-index:-3;
+      opacity:.9;
+      animation: drift 18s linear infinite;
+    }
+    @keyframes drift{
+      from { transform: translate3d(0,0,0); }
+      to   { transform: translate3d(-80px, 60px, 0); }
+    }
+
+    /* glow blobs */
+    .blob{
+      position:fixed;
+      width:520px;
+      height:520px;
+      border-radius:50%;
+      filter: blur(40px);
+      opacity:.22;
+      z-index:-2;
+      pointer-events:none;
+      animation: blobFloat 10s ease-in-out infinite;
+    }
+    .blob.one{ left:-200px; top:80px; background: radial-gradient(circle, var(--pink), transparent 60%); }
+    .blob.two{ right:-240px; bottom:-120px; background: radial-gradient(circle, var(--purple), transparent 60%); animation-delay:2s; }
+    .blob.three{ left:35%; top:-220px; background: radial-gradient(circle, var(--blue), transparent 60%); animation-delay:4s; }
+    @keyframes blobFloat{
+      0%,100% { transform: translate(0,0) scale(1); }
+      50%     { transform: translate(30px, -25px) scale(1.06); }
+    }
+
+    /* sparkles */
+    .sparkles{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-1;
+      overflow:hidden;
+    }
+    .sparkle{
+      position:absolute;
+      width:10px;
+      height:10px;
+      border-radius:2px;
+      background: linear-gradient(45deg, #fff, var(--neon));
+      opacity:.8;
+      filter: drop-shadow(0 0 8px #ffffffaa);
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp{
+      from { transform: translateY(120vh) rotate(0deg); opacity:0; }
+      10% { opacity:.9; }
+      to { transform: translateY(-20vh) rotate(240deg); opacity:0; }
+    }
+
+    /* header */
+    header{
+      padding:18px 20px;
+      text-align:center;
+      border-bottom:2px solid var(--neon);
+      background: linear-gradient(90deg, #ff66cc33, #7b61ff33);
+      backdrop-filter: blur(6px);
+      position:sticky; top:0; z-index:5;
+    }
+    .logo{
+      font-family:'Press Start 2P', monospace;
+      font-size:18px;
+      color:var(--pink);
+      text-shadow: 0 0 10px #ff66cc, 0 0 20px #7b61ff;
+      display:inline-block;
+    }
+    .subnav{
+      margin-top:10px;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .nav-btn{
+      padding: 10px 14px;
+      min-width: 140px;
+      border-radius: 10px;
+      border: 2px solid #111;
+      background: linear-gradient(45deg, #ffffff, #eaeaea);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      color: #111;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #000;
+      position: relative;
+      overflow: hidden;
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+    }
+    .nav-btn:active{ transform: translate(3px,3px); box-shadow: 0 0 0 #000; }
+    .nav-btn:hover{
+      filter: saturate(1.2);
+      box-shadow: 3px 3px 0 #000, 0 0 14px #00ffcc88;
+    }
+    .nav-btn::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(90deg, transparent, #ffffff66, transparent);
+      opacity:.4;
+      transform: translateX(-120%);
+      transition: transform .6s ease;
+      pointer-events:none;
+    }
+    .nav-btn:hover::after{ transform: translateX(120%); }
+
+    /* coming soon row */
+    .coming-wrap{
+      max-width:1100px;
+      margin: 0 auto;
+      padding: 48px 20px 10px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+      text-align:center;
+    }
+
+    .coming-title{
+      font-family:'Press Start 2P', monospace;
+      font-size: 28px;
+      color: var(--neon);
+      text-shadow: 0 0 12px #00ffccaa;
+      margin:0;
+      animation: flicker 4.5s infinite;
+    }
+    @keyframes flicker{
+      0%, 100% { opacity:1; }
+      3% { opacity:.7; }
+      6% { opacity:1; }
+      9% { opacity:.55; }
+      12% { opacity:1; }
+      60% { opacity:.92; }
+      62% { opacity:.6; }
+      64% { opacity:1; }
+    }
+
+    .coming-sub{
+      margin: 0;
+      color: #ddd;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .coming-row{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap: 18px;
+      flex-wrap:wrap;
+      margin-top: 8px;
+    }
+
+    /* Pixel alien baddie */
+    .alien{
+      width: 170px;
+      height: 170px;
+      image-rendering: pixelated;
+      border-radius: 18px;
+      border: 3px solid #111;
+      box-shadow: 10px 10px 0 #000, 0 0 24px #ffffff1a;
+      background: #f2f2f2;
+      padding: 10px;
+    }
+    .px{
+      width: 10px;
+      height: 10px;
+      float:left;
+      background: transparent;
+    }
+    /* colors */
+    .g{ background:#39ff88; }         /* alien green */
+    .dg{ background:#19c965; }        /* darker green */
+    .p{ background:#ff66cc; }         /* pink */
+    .pu{ background:#7b61ff; }        /* purple */
+    .b{ background:#5ddcff; }         /* blue */
+    .k{ background:#111; }            /* black */
+    .w{ background:#fff; }            /* white */
+    .s{ background:#ffd1f0; }         /* soft pink highlight */
+    .c{ background:#00ffcc; }         /* neon */
+
+    .alien-caption{
+      font-family:'Press Start 2P', monospace;
+      font-size: 11px;
+      color: #fff;
+      opacity: .95;
+      text-shadow: 0 0 10px #00ffcc88;
+      margin-top: 8px;
+      text-align:center;
+    }
+
+    /* GWORL popups grid */
+    .gworlz{
+      padding:30px 20px 70px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap:30px;
+      max-width:1100px;
+      margin:0 auto;
+    }
+
+    .winbox{
+      background: var(--win-gray);
+      color: var(--win-dark);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 3px solid var(--win-dark);
+      box-shadow:
+        0 0 0 3px #ffffff22,
+        10px 10px 0 var(--win-shadow),
+        0 0 28px #ffffff1a;
+      transform: translateY(18px);
+      opacity: 0;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .winbox:hover{
+      transform: translateY(-6px) rotate(-0.3deg);
+      box-shadow:
+        0 0 0 3px #ffffff33,
+        12px 12px 0 var(--win-shadow),
+        0 0 38px #ffffff22;
+    }
+
+    .win-titlebar{
+      height: 44px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 0 10px 0 12px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      color:#fff;
+      border-bottom: 3px solid var(--win-dark);
+      position: relative;
+    }
+    .win-titlebar::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(90deg, transparent, #ffffff55, transparent);
+      opacity:.35;
+      animation: titleSweep 3.8s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes titleSweep{
+      0% { transform: translateX(-70%); opacity:0; }
+      25% { opacity:.45; }
+      55% { transform: translateX(70%); opacity:0; }
+      100% { transform: translateX(70%); opacity:0; }
+    }
+
+    .win-title{ text-shadow: 0 0 10px #00ffcc88; user-select:none; }
+
+    .win-x{
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 2px solid var(--win-dark);
+      background: #ffffff;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 12px;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 #000;
+      transition: transform .12s ease;
+    }
+    .win-x:active{ transform: translate(2px,2px); box-shadow: 0 0 0 #000; }
+
+    .win-body{ padding: 18px 16px 16px; }
+    .win-body h2{
+      font-family: 'Press Start 2P', monospace;
+      font-size: 14px;
+      margin: 0 0 10px;
+      color: #111;
+    }
+    .win-body p{ margin: 10px 0; font-size: 14px; color: #2b2b2b; }
+
+    .win-actions{
+      display:flex;
+      gap: 12px;
+      justify-content:center;
+      margin-top: 14px;
+    }
+    .win-btn{
+      min-width: 110px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 2px solid var(--win-dark);
+      background: #fff;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      cursor:pointer;
+      box-shadow: 3px 3px 0 #000;
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .win-btn:active{ transform: translate(3px,3px); box-shadow: 0 0 0 #000; }
+    .win-btn.primary{
+      background: linear-gradient(45deg, var(--pink), var(--purple));
+      color: #111;
+      filter: saturate(1.2);
+    }
+
+    /* Per-gworl titlebar colors */
+    .winbox.it .win-titlebar{ background: linear-gradient(90deg, #ff3bbf, #ffd1f0, #00ffcc); }
+    .winbox.alt .win-titlebar{ background: linear-gradient(90deg, #7b61ff, #00ffcc, #1a0033); }
+    .winbox.sweet .win-titlebar{ background: linear-gradient(90deg, #5ddcff, #fff2b8, #ff66cc); }
+
+    /* cursor sparks */
+    .cursor-spark{
+      position:fixed;
+      width:8px;
+      height:8px;
+      border-radius:2px;
+      background: linear-gradient(45deg, var(--pink), var(--blue));
+      pointer-events:none;
+      opacity:.9;
+      filter: drop-shadow(0 0 10px #ff66cc);
+      transform: translate(-50%, -50%);
+      animation: pop .55s ease forwards;
+      z-index:10;
+    }
+    @keyframes pop{
+      0% { transform: translate(-50%, -50%) scale(1); opacity:.95; }
+      100% { transform: translate(-50%, -50%) scale(2.2); opacity:0; }
+    }
+
+    footer{
+      text-align:center;
+      padding:30px 20px;
+      font-size:12px;
+      color:#888;
+      border-top:1px solid #ffffff22;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{ animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="blob one"></div>
+  <div class="blob two"></div>
+  <div class="blob three"></div>
+  <div class="sparkles" id="sparkles"></div>
+
+  <header>
+    <div class="logo">gworlzverse</div>
+    <div class="subnav">
+      <button class="nav-btn" data-target="#gworlz">OPEN POP-UPS</button>
+      <button class="nav-btn" onclick="window.location.href='index.html'">BACK HOME</button>
+    </div>
+  </header>
+
+  <!-- Coming soon + alien baddie -->
+  <section class="coming-wrap">
+    <h1 class="coming-title">COMING SOON</h1>
+    <p class="coming-sub">the gworlzverse is loading. stay cute. stay dangerous. ✨</p>
+
+    <div class="coming-row">
+      <div>
+        <div class="alien" aria-label="Pixel alien baddie">
+          <!-- 16x16 pixel art (256 divs). Uses simple color classes above. -->
+          <!-- Tip: If you want her taller, we can do 24x24 next. -->
+          <div id="alienPixels"></div>
+        </div>
+        <div class="alien-caption">alien baddie online 👽💅🏾</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pop-up gworl windows -->
+  <section id="gworlz" class="gworlz">
+
+    <article class="winbox it reveal">
+      <div class="win-titlebar">
+        <div class="win-title">main character alert 💅🏾</div>
+        <button class="win-x" aria-label="Close">✕</button>
+      </div>
+      <div class="win-body">
+        <h2>IT GWORL 💅🏾</h2>
+        <p>main character energy. glossy. confident. pretty and powerful.</p>
+        <div class="win-actions">
+          <button class="win-btn primary">Ok</button>
+          <button class="win-btn">Cancel</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="winbox alt reveal">
+      <div class="win-titlebar">
+        <div class="win-title">alt frequency 🖤</div>
+        <button class="win-x" aria-label="Close">✕</button>
+      </div>
+      <div class="win-body">
+        <h2>ALT GWORL 🖤</h2>
+        <p>mysterious. artsy. weird in a hot way. fairy goth. hood fairy.</p>
+        <div class="win-actions">
+          <button class="win-btn primary">Ok</button>
+          <button class="win-btn">Cancel</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="winbox sweet reveal">
+      <div class="win-titlebar">
+        <div class="win-title">incoming: a little taste of sugar 🍬</div>
+        <button class="win-x" aria-label="Close">✕</button>
+      </div>
+      <div class="win-body">
+        <h2>SWEET GWORL 🎀</h2>
+        <p>soft. loving. emotional but not weak. lover girl with a backbone.</p>
+        <div class="win-actions">
+          <button class="win-btn primary">Ok</button>
+          <button class="win-btn">Cancel</button>
+        </div>
+      </div>
+    </article>
+
+  </section>
+
+  <footer>© for the gworlz ✨ made for the gworlz, by the gworlz.</footer>
+
+  <script>
+    // ===== Sparkles generator =====
+    const sparklesWrap = document.getElementById("sparkles");
+    const sparkleCount = 28;
+    const rand = (min, max) => Math.random() * (max - min) + min;
+
+    for(let i=0; i<sparkleCount; i++){
+      const s = document.createElement("div");
+      s.className = "sparkle";
+      s.style.left = rand(0, 100) + "vw";
+      s.style.animationDuration = rand(8, 18) + "s";
+      s.style.animationDelay = rand(0, 6) + "s";
+      s.style.transform = `rotate(${rand(0, 360)}deg)`;
+      s.style.opacity = rand(0.35, 0.9);
+      s.style.width = rand(6, 12) + "px";
+      s.style.height = s.style.width;
+      sparklesWrap.appendChild(s);
+    }
+
+    // ===== Cursor sparks =====
+    let lastSpark = 0;
+    window.addEventListener("mousemove", (ev) => {
+      const now = Date.now();
+      if(now - lastSpark < 55) return;
+      lastSpark = now;
+
+      const sp = document.createElement("div");
+      sp.className = "cursor-spark";
+      sp.style.left = ev.clientX + "px";
+      sp.style.top = ev.clientY + "px";
+      document.body.appendChild(sp);
+      setTimeout(() => sp.remove(), 550);
+    });
+
+    // ===== Reveal on scroll =====
+    const revealEls = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if(e.isIntersecting){
+          e.target.style.opacity = "1";
+          e.target.style.transform = "translateY(0)";
+          e.target.style.transition = "opacity .7s ease, transform .7s ease";
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+
+    // ===== Fake window button interactions =====
+    document.querySelectorAll(".win-x").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const box = e.target.closest(".winbox");
+        box.style.transform = "scale(0.98)";
+        box.style.filter = "brightness(0.9)";
+        setTimeout(() => {
+          box.style.transform = "";
+          box.style.filter = "";
+        }, 200);
+      });
+    });
+
+    document.querySelectorAll(".win-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const box = e.target.closest(".winbox");
+        box.style.boxShadow =
+          "0 0 0 3px #ffffff33, 12px 12px 0 #000, 0 0 50px #00ffcc55";
+        setTimeout(() => { box.style.boxShadow = ""; }, 250);
+      });
+    });
+
+    // ===== Retro nav buttons: pop + scroll =====
+    document.querySelectorAll(".nav-btn[data-target]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        btn.style.boxShadow =
+          "0 0 0 3px #ffffff33, 6px 6px 0 #000, 0 0 30px #00ffccaa";
+        setTimeout(() => { btn.style.boxShadow = ""; }, 220);
+
+        const target = btn.getAttribute("data-target");
+        const el = document.querySelector(target);
+        if(el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    // ===== Pixel alien build (16x16) =====
+    // Legend: '.' empty, 'g' green, 'd' dark green, 'k' black, 'w' white, 'p' pink, 's' soft pink, 'c' neon
+    const map = [
+      "................",
+      ".....gggggg.....",
+      "....ggddddgg....",
+      "...ggddddddgg...",
+      "..ggddkkkkddgg..", // sunglasses frame
+      "..gddkwwwwkddg..", // lenses
+      "..gddkwwwwkddg..",
+      "..ggddkkkkddgg..",
+      "...ggddddddgg...",
+      "...ggddppddgg...", // glossy lips
+      "....ggdssdg.....", // blush
+      ".....ggggg......",
+      ".....g..g.......",
+      "....gg..gg......",
+      "...gg....gg.....",
+      "................"
+    ];
+
+    const holder = document.getElementById("alienPixels");
+    holder.style.width = "160px";
+    holder.style.height = "160px";
+    holder.style.clear = "both";
+
+    const classFor = (ch) => {
+      if(ch === 'g') return 'px g';
+      if(ch === 'd') return 'px dg';
+      if(ch === 'k') return 'px k';
+      if(ch === 'w') return 'px w';
+      if(ch === 'p') return 'px p';
+      if(ch === 's') return 'px s';
+      if(ch === 'c') return 'px c';
+      return 'px';
+    };
+
+    // Create pixels
+    for(let r=0; r<map.length; r++){
+      for(let col=0; col<map[r].length; col++){
+        const px = document.createElement("div");
+        px.className = classFor(map[r][col]);
+        holder.appendChild(px);
+      }
+    }
+  </script>
+</body>
+</html>
