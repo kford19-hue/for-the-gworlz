@@ -102,12 +102,46 @@
       backdrop-filter: blur(6px);
       position:sticky; top:0; z-index:5;
     }
+    
     .logo{
       font-family:'Press Start 2P', monospace;
-      font-size:18px;
+      font-size:20px;
       color:var(--pink);
       text-shadow: 0 0 10px #ff66cc, 0 0 20px #7b61ff;
       display:inline-block;
+      position:relative;
+      animation: logoPulse 2.8s ease-in-out infinite;
+    }
+
+    .logo::before,
+    .logo::after{
+      content: attr(data-text);
+      position:absolute;
+      left:0; top:0;
+      opacity:.7;
+      pointer-events:none;
+    }
+
+    .logo::before{
+      color: var(--neon);
+      transform: translate(1px, 0);
+      clip-path: inset(0 0 55% 0);
+      animation: glitch1 2.4s infinite linear;
+    }
+
+    .logo::after{
+      color: var(--blue);
+      transform: translate(-1px, 0);
+      clip-path: inset(55% 0 0 0);
+      animation: glitch2 2.1s infinite linear;
+    }
+
+    /* reuse animations */
+    @keyframes logoPulse{
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-2px); }
+    }
+    
     }
     .subnav{
       margin-top:10px;
@@ -413,7 +447,7 @@
   <div class="sparkles" id="sparkles"></div>
 
   <header>
-    <div class="logo">gworlzverse</div>
+    <div class="logo" data-text="gworlzverse">gworlzverse</div>
   <div class="subnav">
      <button class="nav-btn" onclick="window.location.href='index.html'">BACK HOME</button>
   </div>
