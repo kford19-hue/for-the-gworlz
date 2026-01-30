@@ -200,6 +200,10 @@
     .alien{
       width: 180px;
       height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
       image-rendering: pixelated;
       border-radius: 22px;
       border: 3px solid #111;
@@ -207,21 +211,30 @@
       10px 10px 0 #000,
       0 0 28px #00ffcc55,
       0 0 60px #ff66cc33;
-     background: #f2f2f2;
-     padding: 10px;
-     transform: translateY(0);
-     transition: transform .25s ease;
-    }
+      background: #f2f2f2;
+      padding: 10px;
+      margin: 0 auto; /* centers the whole box */
+     }
 
    .alien:hover{
      transform: translateY(-6px) scale(1.03);
     }
-    .px{
-      width: 10px;
-      height: 10px;
-      float:left;
-      background: transparent;
-    }
+
+/* Pixel grid (mobile-proof) */
+#alienPixels{
+  display: grid;
+  grid-template-columns: repeat(16, 10px);
+  grid-auto-rows: 10px;
+  gap: 0;
+  width: fit-content;
+  margin: 0 auto;           /* centers the pixel art */
+}
+
+.px{
+  width: 10px;
+  height: 10px;
+  background: transparent;
+}
     /* colors */
     .g{ background:#39ff88; }         /* alien green */
     .dg{ background:#19c965; }        /* darker green */
@@ -581,9 +594,6 @@
     ];
 
     const holder = document.getElementById("alienPixels");
-    holder.style.width = "160px";
-    holder.style.height = "160px";
-    holder.style.clear = "both";
 
     const classFor = (ch) => {
       if(ch === 'g') return 'px g';
